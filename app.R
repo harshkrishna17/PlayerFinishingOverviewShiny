@@ -10,7 +10,7 @@ library(understatr)
 library(hexbin)
 library(shiny)
 
-# App
+# UI
 
 ui <- fluidPage(
     titlePanel("Player Finishing Overview"),
@@ -35,9 +35,13 @@ ui <- fluidPage(
     )
 )
 
+# Server
+
 server <- function(input, output, session) {
     
     plot_fun <- reactive({
+        
+        # Data
         
         req(input$player)
         req(input$roll_avg)
@@ -114,6 +118,8 @@ server <- function(input, output, session) {
                       legend.text = element_text(colour = colorText))
         }
         
+        # Plot
+        
         g1 <- ggplot(line_data, aes(x = date, y = GxGSM, colour = GxGSM)) +
             geom_line(size = 2) + 
             geom_point(size = 3) + 
@@ -187,6 +193,8 @@ server <- function(input, output, session) {
         plot_fun()
         
     })
+    
+    # Download
     
     output$download <- downloadHandler(
         filename = function() { paste(input$player, ".png", sep="") },
