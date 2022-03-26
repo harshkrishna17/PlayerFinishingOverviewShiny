@@ -9,11 +9,16 @@ library(patchwork)
 library(understatr)
 library(hexbin)
 library(shiny)
+library(shinyWidgets)
 
 # UI
 
+PlayerFinishingOverview <- div("Player Finishing Overview", style = "color:#D81B60")
+
 ui <- fluidPage(
-    titlePanel("Player Finishing Overview"),
+    setBackgroundColor("#14171A"),
+    titlePanel(PlayerFinishingOverview),
+    setSliderColor("#D81B60", 1),
     sidebarLayout(
         sidebarPanel(
             numericInput("player", "Understat Player ID:", value = 3294),
@@ -28,9 +33,9 @@ ui <- fluidPage(
             radioButtons("theme", "Background Theme:", choices = c("Dark", "Light"), selected = "Dark"),
             downloadButton("download", "Download Plot")
         ),
-        mainPanel(h2("Introduction & Plot", align = "center"),
-                  h4("This simple Shiny app generates a dashboard of visualizations that can be useful in getting an overview of a soccer player's finishing ability. Play around with the options for customizations and try to gain interesting insights!"),
-                  h5("Created by Harsh Krishna (@placeholder2004)"),
+        mainPanel(h2("Introduction & Plot", align = "center", style = "color:white"),
+                  h4("This simple Shiny app generates a dashboard of visualizations that can be useful in getting an overview of a soccer player's finishing ability. Play around with the options for customizations and try to gain interesting insights!", style = "color:white"),
+                  h5("Created by Harsh Krishna (@veryharshtakes)", style = "color:white"),
                   plotOutput("plot"))
     )
 )
@@ -183,7 +188,7 @@ server <- function(input, output, session) {
         
         my_plot <- g1 / (g2 | g3)
         my_plot &
-            plot_annotation(caption = "Created by @placeholder2004",
+            plot_annotation(caption = "Created by @veryharshtakes",
                             theme = theme(plot.background = element_rect(fill = fill_b, colour = fill_b),
                                           plot.caption = element_text(colour = colorText, hjust = 1, size = 10)))
     })
