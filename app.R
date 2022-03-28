@@ -128,8 +128,7 @@ server <- function(input, output, session) {
         # Plot
         
         g1 <- ggplot(line_data, aes(x = date, y = GxGSM)) +
-            geom_line(size = 2) + 
-            geom_point(size = 3) + 
+            geom_line(size = 2) +  
             geom_braid(aes(ymin = 0, ymax = GxGSM, fill = GxGSM > 0)) +
             scale_fill_manual(values = c("#D81B60", "#3949AB")) +
             geom_hline(yintercept = 0, size = 1, colour = colorLine, linetype = "longdash") +
