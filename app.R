@@ -10,6 +10,8 @@ library(understatr)
 library(hexbin)
 library(shiny)
 library(shinyWidgets)
+library(devtools)
+library(ggbraid)
 
 # UI
 
@@ -125,10 +127,11 @@ server <- function(input, output, session) {
         
         # Plot
         
-        g1 <- ggplot(line_data, aes(x = date, y = GxGSM, colour = GxGSM)) +
+        g1 <- ggplot(line_data, aes(x = date, y = GxGSM)) +
             geom_line(size = 2) + 
             geom_point(size = 3) + 
-            scale_colour_gradient2(low = "#D81B60", mid = colorLine, high = "#3949AB") +
+            geom_braid(aes(ymin = 0, ymax = GxGSM, fill = GxGSM > 0)) +
+            scale_fill_manual(values = c("#D81B60", "#3949AB")) +
             geom_hline(yintercept = 0, size = 1, colour = colorLine, linetype = "longdash") +
             labs(title = glue("{data$player}"), subtitle = glue("{input$year[1]} - {input$year[2]} | League Games Only"), x = glue("{input$roll_avg} Shot Rolling Average"), y = "G - xG") +
             theme_custom() +
