@@ -165,7 +165,7 @@ server <- function(input, output, session) {
                 geom_hex(data = shot_data, aes(x = X, y = Y), bins = 30, colour = colorLine, show.legend = FALSE) +
                 scale_fill_gradient(low = "#D81B60", high = "#3949AB") +
                 labs(y = glue("{sum(shot_data$isGoal)} Goals with {round(sum(shot_data$xG))} xG\nfrom {nrow(shot_data)} Shots."),
-                     x = glue("Created by @placeholder2004\nUnderstat data accurate as per {Sys.Date()}")) +
+                     x = glue("Data via Understat\nAccurate as per {Sys.Date()}")) +
                 theme_custom() +
                 theme(panel.grid.major = element_blank(),
                       panel.grid.minor = element_blank(),
