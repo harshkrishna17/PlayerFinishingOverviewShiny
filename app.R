@@ -15,12 +15,9 @@ library(ggbraid)
 
 # UI
 
-PlayerFinishing <- div("Player Finishing Overview", style = "color:#D81B60")
-PlayerFinishingOverview <- PlayerFinishing
-
 ui <- fluidPage(
   setBackgroundColor("#14171A"),
-  titlePanel(PlayerFinishingOverview),
+  titlePanel(div("Player Finishing Overview", style = "color:#D81B60"), windowTitle = "Player Finishing Overview"),
   setSliderColor("#D81B60", 1),
   sidebarLayout(
     sidebarPanel(
@@ -74,7 +71,7 @@ server <- function(input, output, session) {
       fill_b <- "floralwhite"
       colorText <- "black"
       colorLine <- "black"
-      gridline <- "#525252"
+      gridline <- "#9E9E9E"
     }
     
     # Data Wrangling 
@@ -144,8 +141,7 @@ server <- function(input, output, session) {
         coord_flip(xlim = c(60,120),
                    ylim = c(80, -2)) +
         theme_pitch() +
-        geom_point(data = shot_data, aes(x = X, y = Y, fill = result, size = result), colour = colorLine, shape = 21, show.legend = FALSE) +
-        scale_size_manual(values = c(3,1.5)) +
+        geom_point(data = shot_data, aes(x = X, y = Y, fill = result, size = xG), colour = colorLine, shape = 21, show.legend = FALSE) +
         scale_fill_manual(values = c("#3949AB", fill_b)) +
         labs(y = glue("{sum(shot_data$isGoal)} Goals with {round(sum(shot_data$xG))} xG\nfrom {nrow(shot_data)} Shots."),
              x = glue("Data via Understat\nAccurate as per {Sys.Date()}")) +
